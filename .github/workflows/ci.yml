@@ -24,10 +24,12 @@ jobs:
                 pytest -q
             - name: Run tests
               run: pytest tests/
+
     deploy:
         runs-on: ubuntu-latest
         environment: production
         needs: test
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
